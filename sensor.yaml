@@ -1,0 +1,76 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: windripper-sensor
+spec:
+  template:
+    serviceAccountName: argo-events-sa
+  dependencies:
+  - name: payload
+    eventSourceName: windripper-webhook
+    eventName: windripper
+  triggers:
+  - template:
+      name: windripper
+      k8s:
+        group: ""
+        version: v1
+        resource: pods
+        operation: create
+        source:
+          resource:
+            apiVersion: v1
+            kind: Pod
+            metadata:
+              generateName: windripper-
+              labels:
+                app: windripper
+            spec:
+              containers:
+              - name: hello
+                image: alpine
+                command: ["echo"]
+                args:
+                - "This is the webhook type you sent me:\n"
+                - ""
+                - "\nThis is the resource url to the repo:\n"
+                - ""
+                - "\nThis is the container digest:\n"
+                - ""
+              - name: publish
+                image: westfallio/windripper:0.1.3
+                command: ["python"]
+                env:
+                - name: SQLHOST
+                  value: postgres-postgresql.windstorm:5432
+                args:
+                - "main.py"
+                - ""
+                - ""
+                - ""
+              restartPolicy: Never
+        parameters:
+          - src:
+              dependencyName: payload
+              dataKey: body.type
+            dest: spec.containers.0.args.1
+          - src:
+              dependencyName: payload
+              dataKey: body.event_data.resources.0.resource_url
+            dest: spec.containers.0.args.3
+          - src:
+              dependencyName: payload
+              dataKey: body.event_data.resources.0.digest
+            dest: spec.containers.0.args.5
+          - src:
+              dependencyName: payload
+              dataKey: body.type
+            dest: spec.containers.1.args.1
+          - src:
+              dependencyName: payload
+              dataKey: body.event_data.resources.0.resource_url
+            dest: spec.containers.1.args.2
+          - src:
+              dependencyName: payload
+              dataKey: body.event_data.resources.0.digest
+            dest: spec.containers.1.args.3
