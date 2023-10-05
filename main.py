@@ -23,6 +23,11 @@ class Containers(Base):
     project: Mapped[str] = mapped_column(db.String(255))
     image: Mapped[str] = mapped_column(db.String(255))
     tag: Mapped[str] = mapped_column(db.String(255))
+
+class Container_Commits(Base):
+    __tablename__ = "container_commits"
+    id: Mapped[int] = mapped_column(init=False, primary_key=True)
+    containers_id: Mapped[int] = mapped_column(db.ForeignKey("containers.id"))
     digest: Mapped[str] = mapped_column(db.String(64))
     date: Mapped[datetime] = mapped_column(default=None)
 
@@ -57,12 +62,35 @@ def main(wh_type, wh_resource_url, wh_digest):
     print('Pushing to database')
     c, engine = connect()
     with Session(engine) as session:
-        this_c = Containers(
-            resource_url = wh_resource_url,
-            host = host,
-            project = project,
-            image = image,
-            tag = tag,
+        result = session \
+            .query(Containers) \
+            .filter(
+                Containers.project == project,
+                Containers.image == image,
+                Containers.tag == tag,
+            ) \
+            .first()
+        if result is None:
+            this_c = Containers(
+                resource_url = wh_resource_url,
+                host = host,
+                project = project,
+                image = image,
+                tag = tag,
+            )
+            session.add(this_c)
+            session.commit()
+            result = session \
+                .query(Containers) \
+                .filter(
+                    Containers.project == project,
+                    Containers.image == image,
+                    Containers.tag == tag,
+                ) \
+                .first()
+
+        this_cc = Container_Commits(
+            containers_id = result.id,
             digest = digest,
             date = datetime.now()
         )
