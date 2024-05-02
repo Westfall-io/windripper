@@ -27,22 +27,14 @@ spec:
                 app: windripper
             spec:
               containers:
-              - name: hello
-                image: alpine
-                command: ["echo"]
-                args:
-                - "This is the webhook type you sent me:\n"
-                - ""
-                - "\nThis is the resource url to the repo:\n"
-                - ""
-                - "\nThis is the container digest:\n"
-                - ""
               - name: publish
-                image: westfallio/windripper:0.1.4
+                image: core.harbor.domain/digitalforge/windripper:0.1.7
                 command: ["python"]
                 env:
                 - name: SQLHOST
                   value: postgres-postgresql.windstorm:5432
+                - name: WINDSTORMHOST
+                  value: http://windstorm-webhook-eventsource-svc.argo-events:12000/windstorm
                 args:
                 - "main.py"
                 - ""
@@ -57,20 +49,8 @@ spec:
           - src:
               dependencyName: payload
               dataKey: body.event_data.resources.0.resource_url
+            dest: spec.containers.0.args.2
+          - src:
+              dependencyName: payload
+              dataKey: body.event_data.resources.0.digest
             dest: spec.containers.0.args.3
-          - src:
-              dependencyName: payload
-              dataKey: body.event_data.resources.0.digest
-            dest: spec.containers.0.args.5
-          - src:
-              dependencyName: payload
-              dataKey: body.type
-            dest: spec.containers.1.args.1
-          - src:
-              dependencyName: payload
-              dataKey: body.event_data.resources.0.resource_url
-            dest: spec.containers.1.args.2
-          - src:
-              dependencyName: payload
-              dataKey: body.event_data.resources.0.digest
-            dest: spec.containers.1.args.3
