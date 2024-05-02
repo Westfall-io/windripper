@@ -1,6 +1,6 @@
 # Copyright (c) 2023-2024 Westfall Inc.
 #
-# This file is part of Windstorm-Dwarven.
+# This file is part of Windripper.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
