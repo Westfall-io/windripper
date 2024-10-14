@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.1.1 (2024-10-14)
+
+### :bug:
+
+* :bug: Fix to github action ([`47c6f58`](https://github.com/Westfall-io/windripper/commit/47c6f5813ae87cb00dc023814f1e7cb2e7ebf756))
+
 ## v0.1.0 (2024-10-14)
 
 ### :sparkles:
