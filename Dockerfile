@@ -28,6 +28,8 @@ COPY ./requirements.txt ./requirements.txt
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 WORKDIR /app
-COPY . .
+COPY ./src ./src
+COPY requirements.txt requirements.txt
+COPY LICENSE LICENSE
 
-CMD ["python", "main.py", "", "", ""]
+CMD ["python", "src/main.py", "", "", ""]
