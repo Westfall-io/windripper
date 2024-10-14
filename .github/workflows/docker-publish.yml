@@ -17,7 +17,7 @@ env:
   # github.repository as <account>/<repo>
   IMAGE_NAME: westfallio/windripper
 
-
+permissions: write-all
 
 jobs:
   versioning:
