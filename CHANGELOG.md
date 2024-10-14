@@ -1,8 +1,12 @@
 # CHANGELOG
 
+## v0.1.3 (2024-10-14)
+
 ## v0.1.2 (2024-10-14)
 
 ### :bug:
+
+* :bug: Restoring previous version ([`6fae925`](https://github.com/Westfall-io/windripper/commit/6fae925ce665292b5052ef996021bfebb6d5852e))
 
 * :bug: Adding permissions ([`8cd4cec`](https://github.com/Westfall-io/windripper/commit/8cd4cec9ba2d2bb0991be77be605ff33be7c82a6))
 
