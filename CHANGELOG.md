@@ -1,8 +1,16 @@
 # CHANGELOG
 
+## v0.1.2 (2024-10-14)
+
+### :bug:
+
+* :bug: Adding permissions ([`8cd4cec`](https://github.com/Westfall-io/windripper/commit/8cd4cec9ba2d2bb0991be77be605ff33be7c82a6))
+
 ## v0.1.1 (2024-10-14)
 
 ### :bug:
+
+* :bug: Combining github actions ([`5a937f3`](https://github.com/Westfall-io/windripper/commit/5a937f3546f3dc05f36eed9a8ac650d3720ae96b))
 
 * :bug: Fix to github action ([`47c6f58`](https://github.com/Westfall-io/windripper/commit/47c6f5813ae87cb00dc023814f1e7cb2e7ebf756))
 
