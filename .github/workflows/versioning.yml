@@ -8,7 +8,7 @@ name: Semantic Versioning
 on:
   push:
     branches:
-      - dev
+      - main
 
 permissions: write-all
 
