@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.1.11 (2024-10-15)
+
+### :bug:
+
+* :bug: Adding more to tag ([`d1ce0f7`](https://github.com/Westfall-io/windripper/commit/d1ce0f7b69b20b3c6ca7243b3323cdaa8a4d44ae))
+
 ## v0.1.10 (2024-10-15)
 
 ### :bug:
