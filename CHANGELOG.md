@@ -1,8 +1,16 @@
 # CHANGELOG
 
+## v0.1.9 (2024-10-15)
+
+### :bug:
+
+* :bug: Fixed bug with type error ([`58fc816`](https://github.com/Westfall-io/windripper/commit/58fc8168c1733b501dde2e2bee00286415d3f08d))
+
 ## v0.1.8 (2024-10-15)
 
 ### :bug:
+
+* :bug: Found tag output from semantic release ([`98b86a6`](https://github.com/Westfall-io/windripper/commit/98b86a6192cfb917c31de47ffaecd2509c7ae506))
 
 * :bug: Trying raw tag to debug ([`2e17038`](https://github.com/Westfall-io/windripper/commit/2e1703858debd88fdc04ba5af86bc38e4baf4881))
 
