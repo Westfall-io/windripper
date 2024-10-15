@@ -8,9 +8,6 @@ readme = "README.md"
 packages = [{ include = "main", from = "src" }]
 
 [tool.semantic_release]
-version_pattern = [
-    "sensor.yaml:westfallio/windripper:v{version}",
-]
 version_toml=[
     "pyproject.toml:tool.poetry.version",
     "pyproject.toml:project.version",

@@ -28,7 +28,7 @@ spec:
             spec:
               containers:
               - name: publish
-                image: docker.io/westfallio/windripper:v0.1.11
+                image: docker.io/westfallio/windripper:latest
                 command: ["python"]
                 env:
                 - name: SQLHOST
