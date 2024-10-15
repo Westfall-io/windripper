@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v0.1.10 (2024-10-15)
+
+### :bug:
+
+* :bug: Fix to permissions ([`aabee5c`](https://github.com/Westfall-io/windripper/commit/aabee5cb85b08fa2cc6874b53d6d0dcde47b6e4b))
+
+* :bug: Invalid file ([`5451e5e`](https://github.com/Westfall-io/windripper/commit/5451e5ee99c01f25ee9d866315d22236b5bb4ae8))
+
+* :bug: Invalid file ([`f981414`](https://github.com/Westfall-io/windripper/commit/f98141405eeb5a4aa698e7349f69b736e2c48c06))
+
+* :bug: Just put it all in one ([`76b8a9b`](https://github.com/Westfall-io/windripper/commit/76b8a9b05404c33010df4545a97761b30faa946e))
+
+* :bug: Trying to fix tag input ([`13de1a7`](https://github.com/Westfall-io/windripper/commit/13de1a7d83430c00a5d2920eff40a90d47043ca3))
+
 ## v0.1.9 (2024-10-15)
 
 ### :bug:
