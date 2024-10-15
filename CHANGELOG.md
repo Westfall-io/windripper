@@ -1,6 +1,12 @@
 # CHANGELOG
 
+## v0.1.4 (2024-10-15)
+
 ## v0.1.3 (2024-10-14)
+
+### :bug:
+
+* :bug: Github actions can&#39;t call themselves ([`16b44e1`](https://github.com/Westfall-io/windripper/commit/16b44e1cf994e879f8f33ffa94c6a86081bda2e6))
 
 ## v0.1.2 (2024-10-14)
 
