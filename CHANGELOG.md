@@ -1,10 +1,16 @@
 # CHANGELOG
 
+## v0.2.0 (2024-10-15)
+
 ## v0.1.11 (2024-10-15)
 
 ### :bug:
 
 * :bug: Adding more to tag ([`d1ce0f7`](https://github.com/Westfall-io/windripper/commit/d1ce0f7b69b20b3c6ca7243b3323cdaa8a4d44ae))
+
+### :sparkles:
+
+* :sparkles: Adding new version into sensor as template ([`3895b69`](https://github.com/Westfall-io/windripper/commit/3895b69db0c1385f2fcc259e5bfbd0ab23d67d2b))
 
 ## v0.1.10 (2024-10-15)
 
