@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.1.8 (2024-10-15)
+
+### :bug:
+
+* :bug: Trying raw tag to debug ([`2e17038`](https://github.com/Westfall-io/windripper/commit/2e1703858debd88fdc04ba5af86bc38e4baf4881))
+
 ## v0.1.7 (2024-10-15)
 
 ### :bug:
