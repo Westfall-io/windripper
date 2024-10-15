@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.1.5 (2024-10-15)
+
+### :bug:
+
+* :bug: Found a new way to chain workflows ([`afe5df3`](https://github.com/Westfall-io/windripper/commit/afe5df30eeaadec7284ba8c85440d373fd407452))
+
 ## v0.1.4 (2024-10-15)
 
 ## v0.1.3 (2024-10-14)
