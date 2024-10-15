@@ -28,7 +28,7 @@ spec:
             spec:
               containers:
               - name: publish
-                image: core.harbor.domain/digitalforge/windripper:0.1.7
+                image: docker.io/westfallio/windripper:v0.1.11
                 command: ["python"]
                 env:
                 - name: SQLHOST

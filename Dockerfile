@@ -31,5 +31,6 @@ WORKDIR /app
 COPY ./src ./src
 COPY requirements.txt requirements.txt
 COPY LICENSE LICENSE
+COPY NOTICE NOTICE
 
 CMD ["python", "src/main.py", "", "", ""]
