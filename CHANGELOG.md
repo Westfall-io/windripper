@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.1.6 (2024-10-15)
+
+### :bug:
+
+* :bug: Supporting gitmojis ([`10c0c6f`](https://github.com/Westfall-io/windripper/commit/10c0c6f9ccc03c49a0efee6cbdd95df312a376d9))
+
 ## v0.1.5 (2024-10-15)
 
 ### :bug:
