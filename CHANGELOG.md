@@ -1,6 +1,24 @@
 # CHANGELOG
 
+## v0.2.1 (2024-11-06)
+
+### :zap:
+
+* :zap: Moving passwords to environment vars ([`7ce0935`](https://github.com/Westfall-io/windripper/commit/7ce09355f1890375eb836919af1a28af3324eef9))
+
+### Other
+
+* :fire: Fixing other issues with action ([`7c21e6e`](https://github.com/Westfall-io/windripper/commit/7c21e6e59d985ec1bc6c130b669d383ea63e0f27))
+
+* :fire: Just do it twice ([`52e7d06`](https://github.com/Westfall-io/windripper/commit/52e7d06bd6aad5e51e1c1d91eb07b85acf808a33))
+
+* :fire: Trying a different way to make a list ([`cf75bdb`](https://github.com/Westfall-io/windripper/commit/cf75bdbc7be5af337782f1f9e987e9c77375cbe0))
+
 ## v0.2.0 (2024-10-15)
+
+### Other
+
+* :fire: I guess they removed regex matching in semantic version 7 ([`93198d4`](https://github.com/Westfall-io/windripper/commit/93198d41512bb6e9f077c19ee868ed49487e010b))
 
 ## v0.1.11 (2024-10-15)
 
