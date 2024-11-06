@@ -78,16 +78,19 @@ def get_container_info_harbor(proj, repo):
         os.path.join(domain, proj_url, proj, repo_url, repo, artifact_url),
         auth=HTTPBasicAuth(HARBORUSER, HARBORPASS))
 
-    if 'errors' in r.json():
-        if r.json()['errors'][0]['code'] == 'UNAUTHORIZED':
-            print(r.request.url)
-            print(r.request.body)
-            print(r.request.headers)
-            raise NotImplementedError('UNAUTHORIZED')
+    if r.status_code == 200:
+        if 'errors' in r.json():
+            if r.json()['errors'][0]['code'] == 'UNAUTHORIZED':
+                print(r.request.url)
+                print(r.request.body)
+                print(r.request.headers)
+                raise NotImplementedError('UNAUTHORIZED')
 
-    if len(r.json()) == 0:
-        print(proj, repo)
-        raise NotImplementedError('Failed to get results from harbor api.')
+        if len(r.json()) == 0:
+            print(proj, repo)
+            raise NotImplementedError('Failed to get results from harbor api.')
+    else:
+        raise NotImplementedError('Harbor API Error Response: {}'.format(r.status_code))
 
     try:
         data = r.json()[0]

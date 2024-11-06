@@ -28,7 +28,7 @@ spec:
             spec:
               containers:
               - name: publish
-                image: docker.io/westfallio/windripper:latest
+                image: docker.io/westfallio/windripper:v0.2.1
                 command: ["python"]
                 env:
                 - name: SQLHOST
@@ -63,7 +63,7 @@ spec:
                       name: harborparams     # name of an existing k8s secret
                       key: password     # 'key' subcomponent of the secret
                 args:
-                - "main.py"
+                - "src/main.py"
                 - ""
                 - ""
                 - ""
