@@ -99,7 +99,7 @@ def get_container_info_harbor(proj, repo, digest):
         plat_digest = ''
         for arch in data["references"]:
             if arch["platform"]["os"] == "linux" and arch["platform"]["architecture"]=="amd64":
-                plat_digest = arch["digest"]
+                plat_digest = arch["child_digest"]
                 break # Stop looking
 
 
