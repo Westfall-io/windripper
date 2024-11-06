@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.2.4 (2024-11-06)
+
+### :bug:
+
+* :bug: Adding debug for harbor endpoints ([`b222f2c`](https://github.com/Westfall-io/windripper/commit/b222f2c36020c6158e54ce7fbcdcf965b1718d14))
+
 ## v0.2.3 (2024-11-06)
 
 ## v0.2.2 (2024-11-06)
