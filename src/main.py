@@ -15,16 +15,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from env import *
+
 import time
 start_time = time.time()
-
-import os
-
-SQLHOST = os.environ.get("SQLHOST","localhost:5432")
-WINDSTORMHOST = os.environ.get(
-    "WINDSTORMHOST",
-    "http://windstorm-webhook-eventsource-svc.argo-events:12000/windstorm"
-)
 
 import json
 from datetime import datetime
@@ -60,10 +54,10 @@ class Container_Commits(Base):
 
 def connect():
     db_type = "postgresql"
-    user = "postgres"
-    passwd = "mysecretpassword"
+    user = DBUSER
+    passwd = DBPASS
     address = SQLHOST
-    db_name = "sysml2"
+    db_name = DBTABLE
 
     address = db_type+"://"+user+":"+passwd+"@"+address+"/"+db_name
     engine = db.create_engine(address)
@@ -72,7 +66,7 @@ def connect():
     return conn, engine
 
 def get_container_info_harbor(proj, repo):
-    domain = "http://harbor-core.harbor/api/v2.0"
+    domain = HARBORHOST
     proj_url = "projects"
     repo_url = "repositories"
     artifact_url = "artifacts"
@@ -82,7 +76,7 @@ def get_container_info_harbor(proj, repo):
     print('Attempting to connect to harbor API.')
     r = requests.get(
         os.path.join(domain, proj_url, proj, repo_url, repo, artifact_url),
-        auth=HTTPBasicAuth('admin', 'Harbor12345'))
+        auth=HTTPBasicAuth(HARBORUSER, HARBORPASS))
 
     if 'errors' in r.json():
         if r.json()['errors'][0]['code'] == 'UNAUTHORIZED':
