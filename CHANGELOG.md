@@ -1,8 +1,12 @@
 # CHANGELOG
 
+## v0.2.5 (2024-11-06)
+
 ## v0.2.4 (2024-11-06)
 
 ### :bug:
+
+* :bug: Sha now required for extra config data in API ([`978b6a0`](https://github.com/Westfall-io/windripper/commit/978b6a04032ed2265b016169c8896b8b4a300903))
 
 * :bug: Adding debug for harbor endpoints ([`b222f2c`](https://github.com/Westfall-io/windripper/commit/b222f2c36020c6158e54ce7fbcdcf965b1718d14))
 
