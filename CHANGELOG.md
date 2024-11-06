@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.2.2 (2024-11-06)
+
+### :bug:
+
+* :bug: Adding more debug for Harbor API errors ([`69fb8db`](https://github.com/Westfall-io/windripper/commit/69fb8db7f2ddbcff8fa23aefd1d975325f03177e))
+
 ## v0.2.1 (2024-11-06)
 
 ### :zap:
