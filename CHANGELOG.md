@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.2.7 (2024-11-06)
+
+### :bug:
+
+* :bug: Fixed an issue with incorrect key ([`4ea0386`](https://github.com/Westfall-io/windripper/commit/4ea0386d1f313399d91628b221c5b3a0b927fccf))
+
 ## v0.2.6 (2024-11-06)
 
 ### :bug:
