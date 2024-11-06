@@ -79,6 +79,7 @@ def get_container_info_harbor(proj, repo):
         auth=HTTPBasicAuth(HARBORUSER, HARBORPASS))
 
     if r.status_code == 200:
+        print('Connected at: {}'.format(os.path.join(domain, proj_url, proj, repo_url, repo, artifact_url)))
         if 'errors' in r.json():
             if r.json()['errors'][0]['code'] == 'UNAUTHORIZED':
                 print(r.request.url)
@@ -125,7 +126,7 @@ def main(wh_type, wh_resource_url, wh_digest):
     host = urlparts[0]
     project = urlparts[1]
     image = urlparts[2]
-    
+
     if '@sha256' in image:
         print('Invalid image name, skipping.')
         return
