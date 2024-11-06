@@ -79,7 +79,7 @@ def get_container_info_harbor(proj, repo, digest):
         auth=HTTPBasicAuth(HARBORUSER, HARBORPASS))
 
     if r.status_code == 200:
-        print('Connected at: {}'.format(os.path.join(domain, proj_url, proj, repo_url, repo, artifact_url)))
+        print('Connected at: {}'.format(os.path.join(domain, proj_url, proj, repo_url, repo, artifact_url, "sha256:"+digest)))
         if 'errors' in r.json():
             if r.json()['errors'][0]['code'] == 'UNAUTHORIZED':
                 print(r.request.url)
@@ -87,14 +87,50 @@ def get_container_info_harbor(proj, repo, digest):
                 print(r.request.headers)
                 raise NotImplementedError('UNAUTHORIZED')
 
-        if len(r.json()) == 0:
-            print(proj, repo)
-            raise NotImplementedError('Failed to get results from harbor api.')
+        #if len(r.json()) == 0:
+        #    print(proj, repo)
+        #    raise NotImplementedError('Failed to get results from harbor api.')
+    else:
+        raise NotImplementedError('Harbor API Error Response: {}'.format(r.status_code))
+
+    # Get the linux/amd os/arch sha
+    try:
+        data = r.json()
+        plat_digest = ''
+        for arch in data["references"]:
+            if arch["platform"]["os"] == "linux" and arch["platform"]["architecture"]=="amd64":
+                plat_digest = arch["digest"]
+                break # Stop looking
+
+
+    except KeyError:
+        print(r.json())
+        raise KeyError('Failed to find an entry.')
+    except IndexError:
+        print(r.json())
+        raise KeyError('Failed to find an entry.')
+
+    if plat_digest == '':
+        return info
+
+    print('Attempting to connect to harbor API.')
+    r = requests.get(
+        os.path.join(domain, proj_url, proj, repo_url, repo, artifact_url, plat_digest),
+        auth=HTTPBasicAuth(HARBORUSER, HARBORPASS))
+
+    if r.status_code == 200:
+        print('Connected at: {}'.format(os.path.join(domain, proj_url, proj, repo_url, repo, artifact_url, "sha256:"+digest)))
+        if 'errors' in r.json():
+            if r.json()['errors'][0]['code'] == 'UNAUTHORIZED':
+                print(r.request.url)
+                print(r.request.body)
+                print(r.request.headers)
+                raise NotImplementedError('UNAUTHORIZED')
     else:
         raise NotImplementedError('Harbor API Error Response: {}'.format(r.status_code))
 
     try:
-        data = r.json()[0]
+        data = r.json()
         config = data["extra_attrs"]["config"]
         info['project_id'] = data["project_id"]
         info['image_id'] = data["repository_id"]
@@ -179,6 +215,10 @@ def main(wh_type, wh_resource_url, wh_digest):
         container_id = result.id
 
         info = get_container_info_harbor(project, image, digest)
+
+        if not 'cmd' in info:
+            print('No valid architecture was found, exiting.')
+            return
 
         this_cc = Container_Commits(
             containers_id = container_id,
