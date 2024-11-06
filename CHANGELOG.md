@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.2.6 (2024-11-06)
+
+### :bug:
+
+* :bug: Fixed an issue because it only returns a single dictionary rather than a list of them ([`aefa6c4`](https://github.com/Westfall-io/windripper/commit/aefa6c40ae948b84c743a99cdc7b5c949c4c1847))
+
 ## v0.2.5 (2024-11-06)
 
 ## v0.2.4 (2024-11-06)
