@@ -65,7 +65,7 @@ def connect():
 
     return conn, engine
 
-def get_container_info_harbor(proj, repo):
+def get_container_info_harbor(proj, repo, digest):
     domain = HARBORHOST
     proj_url = "projects"
     repo_url = "repositories"
@@ -75,7 +75,7 @@ def get_container_info_harbor(proj, repo):
 
     print('Attempting to connect to harbor API.')
     r = requests.get(
-        os.path.join(domain, proj_url, proj, repo_url, repo, artifact_url),
+        os.path.join(domain, proj_url, proj, repo_url, repo, artifact_url, "sha256:"+digest),
         auth=HTTPBasicAuth(HARBORUSER, HARBORPASS))
 
     if r.status_code == 200:
@@ -178,7 +178,7 @@ def main(wh_type, wh_resource_url, wh_digest):
 
         container_id = result.id
 
-        info = get_container_info_harbor(project, image)
+        info = get_container_info_harbor(project, image, digest)
 
         this_cc = Container_Commits(
             containers_id = container_id,
