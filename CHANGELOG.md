@@ -1,8 +1,12 @@
 # CHANGELOG
 
+## v0.2.3 (2024-11-06)
+
 ## v0.2.2 (2024-11-06)
 
 ### :bug:
+
+* :bug: Fixed an issue where invalidly named container webhooks were passed. ([`d9c3529`](https://github.com/Westfall-io/windripper/commit/d9c3529634168a99018348d0b24184442cac0887))
 
 * :bug: Adding more debug for Harbor API errors ([`69fb8db`](https://github.com/Westfall-io/windripper/commit/69fb8db7f2ddbcff8fa23aefd1d975325f03177e))
 
