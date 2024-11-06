@@ -125,6 +125,10 @@ def main(wh_type, wh_resource_url, wh_digest):
     host = urlparts[0]
     project = urlparts[1]
     image = urlparts[2]
+    
+    if '@sha256' in image:
+        print('Invalid image name, skipping.')
+        return
 
     digest = wh_digest[7:]
 
