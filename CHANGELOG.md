@@ -1,48 +1,30 @@
 # CHANGELOG
 
-## v0.1.12 (2024-12-31)
+## v0.2.0 (2024-12-31)
 
 ### :sparkles:
 
-* :sparkles: Migrating from minikube version to fully hosted k8s ([`d3970e6`](https://github.com/Westfall-io/windripper/commit/d3970e6a8c028db0d78ad14b4fbd58cc3345dcef))
+* :sparkles: Migrating from minikube version to fully hosted k8s ([`f2151ab`](https://github.com/Westfall-io/windripper/commit/f2151ab0c7f3bd2bbf9d53b767b291c71d283cb0))
 
-### Other
-
-* :page_facing_up: Adding license to file ([`ad53e92`](https://github.com/Westfall-io/windripper/commit/ad53e9267b6865c0334c10125a67f7b9324530d2))
-
-## v0.2.7 (2024-11-06)
+## v0.1.12 (2024-12-31)
 
 ### :bug:
 
 * :bug: Fixed an issue with incorrect key ([`4ea0386`](https://github.com/Westfall-io/windripper/commit/4ea0386d1f313399d91628b221c5b3a0b927fccf))
 
-## v0.2.6 (2024-11-06)
-
-### :bug:
-
 * :bug: Fixed an issue because it only returns a single dictionary rather than a list of them ([`aefa6c4`](https://github.com/Westfall-io/windripper/commit/aefa6c40ae948b84c743a99cdc7b5c949c4c1847))
-
-## v0.2.5 (2024-11-06)
-
-## v0.2.4 (2024-11-06)
-
-### :bug:
 
 * :bug: Sha now required for extra config data in API ([`978b6a0`](https://github.com/Westfall-io/windripper/commit/978b6a04032ed2265b016169c8896b8b4a300903))
 
 * :bug: Adding debug for harbor endpoints ([`b222f2c`](https://github.com/Westfall-io/windripper/commit/b222f2c36020c6158e54ce7fbcdcf965b1718d14))
 
-## v0.2.3 (2024-11-06)
-
-## v0.2.2 (2024-11-06)
-
-### :bug:
-
 * :bug: Fixed an issue where invalidly named container webhooks were passed. ([`d9c3529`](https://github.com/Westfall-io/windripper/commit/d9c3529634168a99018348d0b24184442cac0887))
 
 * :bug: Adding more debug for Harbor API errors ([`69fb8db`](https://github.com/Westfall-io/windripper/commit/69fb8db7f2ddbcff8fa23aefd1d975325f03177e))
 
-## v0.2.1 (2024-11-06)
+### :sparkles:
+
+* :sparkles: Migrating from minikube version to fully hosted k8s ([`d3970e6`](https://github.com/Westfall-io/windripper/commit/d3970e6a8c028db0d78ad14b4fbd58cc3345dcef))
 
 ### :zap:
 
@@ -50,15 +32,13 @@
 
 ### Other
 
+* :page_facing_up: Adding license to file ([`ad53e92`](https://github.com/Westfall-io/windripper/commit/ad53e9267b6865c0334c10125a67f7b9324530d2))
+
 * :fire: Fixing other issues with action ([`7c21e6e`](https://github.com/Westfall-io/windripper/commit/7c21e6e59d985ec1bc6c130b669d383ea63e0f27))
 
 * :fire: Just do it twice ([`52e7d06`](https://github.com/Westfall-io/windripper/commit/52e7d06bd6aad5e51e1c1d91eb07b85acf808a33))
 
 * :fire: Trying a different way to make a list ([`cf75bdb`](https://github.com/Westfall-io/windripper/commit/cf75bdbc7be5af337782f1f9e987e9c77375cbe0))
-
-## v0.2.0 (2024-10-15)
-
-### Other
 
 * :fire: I guess they removed regex matching in semantic version 7 ([`93198d4`](https://github.com/Westfall-io/windripper/commit/93198d41512bb6e9f077c19ee868ed49487e010b))
 
