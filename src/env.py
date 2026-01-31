@@ -15,6 +15,22 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+"""
+env — environment configuration for Windripper
+
+This module exposes configuration values read from environment variables
+with reasonable defaults. These constants are used by the application to
+configure database connectivity, Harbor registry access, and the Windstorm
+webhook target.
+
+Variables:
+- `SQLHOST`: database host and port (default: "localhost:5432").
+- `DBUSER`, `DBPASS`, `DBTABLE`: database user, password and database name.
+- `HARBORHOST`, `HARBORUSER`, `HARBORPASS`: Harbor registry API endpoint
+    and credentials.
+- `WINDSTORMHOST`: URL to post notifications to the Windstorm webhook.
+"""
+
 import os
 
 SQLHOST = os.environ.get("SQLHOST","localhost:5432")

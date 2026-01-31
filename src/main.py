@@ -15,6 +15,24 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+"""
+main — process Harbor webhook events and persist container data
+
+This module provides a small CLI entrypoint used to process Harbor
+webhook events related to pushed artifacts. It parses the webhook inputs,
+queries the Harbor API for manifest/config information for the pushed
+artifact (selecting linux/amd64 when available), and persists container
+and commit information into a PostgreSQL database using SQLAlchemy.
+
+Typical usage (CLI): call `main(wh_type, wh_resource_url, wh_digest)` where
+`wh_type` is the webhook event type (we handle `PUSH_ARTIFACT`),
+`wh_resource_url` is the image resource string (e.g. "registry/project/repo:tag"),
+and `wh_digest` is the artifact digest (e.g. "sha256:...").
+
+The module also posts a small notification payload to the `WINDSTORMHOST`
+webhook after a successful database update.
+"""
+
 from env import *
 
 import time
@@ -30,9 +48,25 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, \
     mapped_column, MappedAsDataclass, relationship, Session
 
 class Base(MappedAsDataclass, DeclarativeBase):
-    """subclasses will be converted to dataclasses"""
+    """SQLAlchemy base class.
+
+    Subclasses of `Base` are SQLAlchemy ORM models that are also converted
+    to dataclasses for convenient attribute access and repr behavior.
+    """
 
 class Containers(Base):
+    """ORM model representing a container/image entry.
+
+    Columns:
+    - `id`: primary key
+    - `resource_url`: original Harbor resource URL string (project/repo:tag)
+    - `host`: registry host
+    - `project`: Harbor project name
+    - `project_id`: Harbor project numeric id (may be filled later)
+    - `image`: repository name
+    - `image_id`: Harbor repository id (may be filled later)
+    - `tag`: image tag
+    """
     __tablename__ = "containers"
     id: Mapped[int] = mapped_column(init=False, primary_key=True)
     resource_url: Mapped[str] = mapped_column(db.String(255))
@@ -44,6 +78,16 @@ class Containers(Base):
     tag: Mapped[str] = mapped_column(db.String(255))
 
 class Container_Commits(Base):
+    """ORM model storing commits (artifact digests) and runtime metadata.
+
+    Columns:
+    - `id`: primary key
+    - `containers_id`: foreign key to `Containers.id`
+    - `digest`: artifact digest (sha256)
+    - `cmd`: serialized command/config from the image config
+    - `working_dir`: declared working directory from the image config
+    - `date`: timestamp when this commit was observed
+    """
     __tablename__ = "container_commits"
     id: Mapped[int] = mapped_column(init=False, primary_key=True)
     containers_id: Mapped[int] = mapped_column(db.ForeignKey("containers.id"))
@@ -53,6 +97,13 @@ class Container_Commits(Base):
     date: Mapped[datetime] = mapped_column(default=None)
 
 def connect():
+    """Create a database connection and engine.
+
+    Reads database connection parameters from the `env` module and returns
+    a tuple `(conn, engine)` where `conn` is a live connection and `engine`
+    is the SQLAlchemy engine for further ORM operations.
+    """
+
     db_type = "postgresql"
     user = DBUSER
     passwd = DBPASS
@@ -66,6 +117,25 @@ def connect():
     return conn, engine
 
 def get_container_info_harbor(proj, repo, digest):
+    """Query the Harbor API to obtain image artifact configuration.
+
+    This function attempts to locate a linux/amd64 child manifest for the
+    provided artifact digest and then fetches that manifest's config to
+    extract runtime fields like `Cmd` and `WorkingDir`.
+
+    Parameters:
+    - `proj` (str): Harbor project name
+    - `repo` (str): Harbor repository name
+    - `digest` (str): artifact digest (hex string without the leading 'sha256:')
+
+    Returns:
+    - dict containing keys like `working_dir`, `cmd`, `project_id`, `image_id`.
+
+    Raises:
+    - `NotImplementedError` on API errors or unauthorized responses.
+    - `KeyError` if expected fields are missing in the Harbor response.
+    """
+
     domain = HARBORHOST
     proj_url = "projects"
     repo_url = "repositories"
@@ -151,6 +221,13 @@ def get_container_info_harbor(proj, repo, digest):
     return info
 
 def main(wh_type, wh_resource_url, wh_digest):
+    """Handle a webhook payload and persist container/commit information.
+
+    The function expects the webhook type, a Harbor resource URL in the
+    form `host/project/repo:tag` and the artifact digest (e.g. 'sha256:...').
+    Only `PUSH_ARTIFACT` events are processed; others are ignored.
+    """
+
     if wh_type != 'PUSH_ARTIFACT':
         # This was not a push, disregard.
         return
