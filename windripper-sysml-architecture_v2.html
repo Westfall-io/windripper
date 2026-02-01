@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windripper - SysML v2 Model & Architecture</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background: #34495e;
+            padding: 15px 40px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            border-bottom: 3px solid #2c3e50;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        nav a:hover {
+            background: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        section {
+            margin-bottom: 60px;
+            scroll-margin-top: 20px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        h3 {
+            color: #34495e;
+            font-size: 1.5em;
+            margin: 30px 0 15px 0;
+        }
+        
+        h4 {
+            color: #555;
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+        }
+        
+        .diagram-container {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .mermaid {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+            margin: 15px 0;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            padding: 20px;
+            border-left: 4px solid #2196F3;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        tr:hover {
+            background: #f0f0f0;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        
+        .card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .card h4 {
+            color: #667eea;
+            margin-top: 0;
+        }
+        
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            nav {
+                padding: 15px 20px;
+            }
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌪️ Windripper</h1>
+            <p>Container Image Webhook Processing System - SysML v2 Model & Architecture</p>
+        </header>
+        
+        <nav>
+            <a href="#overview">Overview</a>
+            <a href="#sysml">SysML v2 Model</a>
+            <a href="#physical">Physical Architecture</a>
+            <a href="#functional">Functional Architecture</a>
+            <a href="#deployment">Deployment Design</a>
+            <a href="#data">Data Model</a>
+        </nav>
+        
+        <div class="content">
+            <!-- OVERVIEW SECTION -->
+            <section id="overview">
+                <h2>System Overview</h2>
+                
+                <div class="info-box">
+                    <strong>Windripper</strong> is a container image webhook processing system that monitors Harbor registry push events, 
+                    extracts container metadata and configuration, persists it to a PostgreSQL database, and notifies downstream 
+                    systems (Windstorm) of new container commits.
+                </div>
+                
+                <h3>Key Capabilities</h3>
+                <ul>
+                    <li>Receives and processes Harbor webhook events for artifact pushes</li>
+                    <li>Queries Harbor API to retrieve container manifests and configurations</li>
+                    <li>Extracts platform-specific (linux/amd64) container metadata</li>
+                    <li>Persists container and commit information to PostgreSQL database</li>
+                    <li>Notifies downstream webhook endpoints (Windstorm) upon successful processing</li>
+                    <li>Deployed as ephemeral Kubernetes pods triggered by Argo Events</li>
+                </ul>
+                
+                <h3>Technology Stack</h3>
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>Runtime & Framework</h4>
+                        <ul>
+                            <li>Python 3.9</li>
+                            <li>SQLAlchemy 2.0.20 (ORM)</li>
+                            <li>Fire 0.5.0 (CLI)</li>
+                            <li>Requests 2.32.2</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>Infrastructure</h4>
+                        <ul>
+                            <li>Kubernetes</li>
+                            <li>Argo Events</li>
+                            <li>PostgreSQL</li>
+                            <li>Harbor Registry</li>
+                            <li>Docker</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SYSML V2 MODEL SECTION -->
+            <section id="sysml">
+                <h2>SysML v2 Model</h2>
+                
+                <h3>Package Structure</h3>
+                <div class="code-block">
+package Windripper {
+    // Top-level package for the Windripper system
+    
+    package Requirements {
+        requirement ProcessPushEvents {
+            doc /* System shall process Harbor PUSH_ARTIFACT webhook events */
+            subject system : WindripperSystem;
+        }
+        
+        requirement ExtractMetadata {
+            doc /* System shall extract container metadata from Harbor API */
+            subject system : WindripperSystem;
+        }
+        
+        requirement PersistData {
+            doc /* System shall persist container and commit data to PostgreSQL */
+            subject system : WindripperSystem;
+        }
+        
+        requirement NotifyDownstream {
+            doc /* System shall notify Windstorm webhook upon successful processing */
+            subject system : WindripperSystem;
+        }
+        
+        requirement SupportLinuxAmd64 {
+            doc /* System shall prioritize linux/amd64 platform manifests */
+            subject system : WindripperSystem;
+        }
+    }
+    
+    package Components {
+        part def WindripperSystem {
+            doc /* Main system component for container webhook processing */
+            
+            part webhookReceiver : WebhookReceiver;
+            part harborClient : HarborAPIClient;
+            part databasePersistor : DatabasePersistor;
+            part windstormNotifier : WindstormNotifier;
+            part eventProcessor : EventProcessor;
+            
+            // Connections between components
+            connect webhookReceiver.eventOutput to eventProcessor.eventInput;
+            connect eventProcessor.harborRequest to harborClient.apiRequest;
+            connect harborClient.metadataOutput to eventProcessor.metadataInput;
+            connect eventProcessor.persistRequest to databasePersistor.dataInput;
+            connect databasePersistor.persistComplete to eventProcessor.persistConfirm;
+            connect eventProcessor.notifyRequest to windstormNotifier.notificationInput;
+        }
+        
+        part def WebhookReceiver {
+            doc /* Receives webhook events from Harbor via Argo Events */
+            
+            port eventOutput {
+                out event_type : String;
+                out resource_url : String;
+                out digest : String;
+            }
+        }
+        
+        part def HarborAPIClient {
+            doc /* Queries Harbor API for container manifest and configuration */
+            
+            port apiRequest {
+                in project : String;
+                in repository : String;
+                in digest : String;
+            }
+            
+            port metadataOutput {
+                out working_dir : String;
+                out cmd : String;
+                out project_id : Integer;
+                out image_id : Integer;
+            }
+            
+            attribute harborHost : String;
+            attribute credentials : HarborCredentials;
+        }
+        
+        part def DatabasePersistor {
+            doc /* Persists container and commit data to PostgreSQL */
+            
+            port dataInput {
+                in containerData : ContainerData;
+                in commitData : CommitData;
+            }
+            
+            port persistComplete {
+                out container_id : Integer;
+            }
+            
+            attribute connectionString : String;
+            attribute engine : SQLAlchemyEngine;
+        }
+        
+        part def WindstormNotifier {
+            doc /* Sends notification to Windstorm webhook */
+            
+            port notificationInput {
+                in container_id : Integer;
+            }
+            
+            attribute windstormHost : String;
+        }
+        
+        part def EventProcessor {
+            doc /* Orchestrates the webhook processing workflow */
+            
+            port eventInput;
+            port harborRequest;
+            port metadataInput;
+            port persistRequest;
+            port persistConfirm;
+            port notifyRequest;
+            
+            action processWebhook {
+                in event_type : String;
+                in resource_url : String;
+                in digest : String;
+                out success : Boolean;
+            }
+        }
+    }
+    
+    package DataModel {
+        attribute def ContainerData {
+            resource_url : String;
+            host : String;
+            project : String;
+            project_id : Integer;
+            image : String;
+            image_id : Integer;
+            tag : String;
+        }
+        
+        attribute def CommitData {
+            containers_id : Integer;
+            digest : String;
+            cmd : String;
+            working_dir : String;
+            date : DateTime;
+        }
+        
+        attribute def HarborCredentials {
+            username : String;
+            password : String;
+        }
+    }
+    
+    package Interfaces {
+        interface def HarborWebhookInterface {
+            doc /* Interface for receiving Harbor webhook events */
+            
+            in event_type : String;
+            in resource_url : String;
+            in digest : String;
+        }
+        
+        interface def HarborAPIInterface {
+            doc /* Interface for querying Harbor REST API */
+            
+            in endpoint : String;
+            in credentials : HarborCredentials;
+            out manifestData : JSON;
+            out configData : JSON;
+        }
+        
+        interface def PostgreSQLInterface {
+            doc /* Interface for PostgreSQL database operations */
+            
+            in connectionString : String;
+            in query : SQLQuery;
+            out result : QueryResult;
+        }
+        
+        interface def WindstormWebhookInterface {
+            doc /* Interface for notifying Windstorm */
+            
+            in payload : JSON;
+            out response : HTTPResponse;
+        }
+    }
+    
+    package Behaviors {
+        action def ProcessPushArtifact {
+            doc /* Main workflow for processing PUSH_ARTIFACT events */
+            
+            in event_type : String;
+            in resource_url : String;
+            in digest : String;
+            
+            first start;
+            
+            action validateEventType {
+                if (event_type == "PUSH_ARTIFACT") {
+                    then parseResourceUrl;
+                } else {
+                    then exit;
+                }
+            }
+            
+            action parseResourceUrl {
+                then queryDatabase;
+            }
+            
+            action queryDatabase {
+                then fetchHarborMetadata;
+            }
+            
+            action fetchHarborMetadata {
+                then extractLinuxAmd64Manifest;
+            }
+            
+            action extractLinuxAmd64Manifest {
+                then fetchConfigData;
+            }
+            
+            action fetchConfigData {
+                then persistToDatabase;
+            }
+            
+            action persistToDatabase {
+                then notifyWindstorm;
+            }
+            
+            action notifyWindstorm {
+                then done;
+            }
+            
+            then start start validateEventType;
+        }
+    }
+    
+    package Deployment {
+        part def KubernetesPod {
+            doc /* Ephemeral pod created by Argo Events sensor */
+            
+            part container : WindripperContainer;
+            attribute restartPolicy : String = "Never";
+            attribute generateName : String = "windripper-";
+        }
+        
+        part def WindripperContainer {
+            doc /* Container running the Windripper application */
+            
+            attribute image : String = "docker.io/westfallio/windripper:v0.2.7";
+            attribute command : String[] = ["python"];
+            attribute args : String[];
+            
+            part envVars : EnvironmentVariables;
+        }
+        
+        part def EnvironmentVariables {
+            attribute SQLHOST : String;
+            attribute DBUSER : String;
+            attribute DBPASS : String;
+            attribute DBTABLE : String;
+            attribute HARBORHOST : String;
+            attribute HARBORUSER : String;
+            attribute HARBORPASS : String;
+            attribute WINDSTORMHOST : String;
+        }
+        
+        part def ArgoEventsSensor {
+            doc /* Argo Events sensor that triggers pod creation */
+            
+            attribute name : String = "windripper-sensor";
+            attribute eventSourceName : String = "windripper-webhook";
+            attribute eventName : String = "windripper";
+        }
+        
+        part def ArgoEventsSource {
+            doc /* Webhook event source for receiving Harbor events */
+            
+            attribute name : String = "windripper-webhook";
+            attribute port : Integer = 12000;
+            attribute endpoint : String = "/windripper";
+            attribute method : String = "POST";
+        }
+    }
+}
+                </div>
+                
+                <div class="highlight">
+                    <strong>Note:</strong> This SysML v2 model defines the requirements, components, data model, interfaces, 
+                    behaviors, and deployment structure of the Windripper system using SysML v2 syntax and conventions.
+                </div>
+            </section>
+            
+            <!-- PHYSICAL ARCHITECTURE -->
+            <section id="physical">
+                <h2>Physical Architecture</h2>
+                
+                <h3>Component Diagram</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph TB
+    subgraph HarborReg["Harbor Registry"]
+        Harbor[Harbor Core API]
+        Registry[Container Registry]
+    end
+    
+    subgraph K8sCluster["Kubernetes Cluster"]
+        subgraph ArgoNS["Argo Events Namespace"]
+            EventSource["Webhook EventSource<br/>Port: 12000<br/>Endpoint: /windripper"]
+            Sensor["Argo Events Sensor<br/>windripper-sensor"]
+        end
+        
+        subgraph RuntimeNS["Runtime Namespace"]
+            Pod["Ephemeral Pod<br/>windripper-*"]
+            Container["Windripper Container<br/>Python 3.9 Alpine"]
+        end
+        
+        subgraph DataNS["Data Namespace"]
+            PostgreSQL[("PostgreSQL Database<br/>sysml2")]
+        end
+        
+        subgraph DownstreamNS["Downstream Services"]
+            Windstorm["Windstorm Webhook<br/>Port: 12000"]
+        end
+    end
+    
+    Harbor -->|Push Event Webhook| EventSource
+    EventSource -->|Event Payload| Sensor
+    Sensor -->|Create Pod| Pod
+    Pod -->|Contains| Container
+    Container -->|"Query Manifest/Config<br/>GET /api/v2.0/projects"| Harbor
+    Container -->|"Insert/Update<br/>Containers & Commits"| PostgreSQL
+    Container -->|"POST Notification<br/>payload"| Windstorm
+    
+    style Harbor fill:#ff6b6b
+    style Registry fill:#ff6b6b
+    style EventSource fill:#4ecdc4
+    style Sensor fill:#4ecdc4
+    style Pod fill:#95e1d3
+    style Container fill:#95e1d3
+    style PostgreSQL fill:#ffd93d
+    style Windstorm fill:#f38181
+                    </div>
+                </div>
+                
+                <h3>Network Topology</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph LR
+    subgraph "External"
+        HarborExt[Harbor Registry<br/>harbor-core.harbor]
+    end
+    
+    subgraph "Kubernetes Services"
+        WebhookSvc[windripper-webhook-eventsource-svc<br/>ClusterIP:12000]
+        PostgresSvc[postgres-postgresql.windstorm<br/>5432]
+        WindstormSvc[windstorm-webhook-eventsource-svc<br/>12000]
+    end
+    
+    subgraph "Application Pods"
+        WindripperPod[windripper-*<br/>Ephemeral Pod]
+    end
+    
+    HarborExt -->|HTTP POST| WebhookSvc
+    WebhookSvc -->|Trigger| WindripperPod
+    WindripperPod -->|HTTP GET<br/>API Queries| HarborExt
+    WindripperPod -->|PostgreSQL Protocol<br/>5432| PostgresSvc
+    WindripperPod -->|HTTP POST<br/>Notification| WindstormSvc
+    
+    style HarborExt fill:#ff6b6b
+    style WebhookSvc fill:#4ecdc4
+    style PostgresSvc fill:#ffd93d
+    style WindstormSvc fill:#f38181
+    style WindripperPod fill:#95e1d3
+                    </div>
+                </div>
+                
+                <h3>Physical Components</h3>
+                <table>
+                    <tr>
+                        <th>Component</th>
+                        <th>Type</th>
+                        <th>Location</th>
+                        <th>Purpose</th>
+                    </tr>
+                    <tr>
+                        <td>Harbor Core API</td>
+                        <td>External Service</td>
+                        <td>harbor-core.harbor</td>
+                        <td>Container registry and webhook source</td>
+                    </tr>
+                    <tr>
+                        <td>Webhook EventSource</td>
+                        <td>Kubernetes Service</td>
+                        <td>argo-events namespace</td>
+                        <td>Receives Harbor webhook events</td>
+                    </tr>
+                    <tr>
+                        <td>Argo Events Sensor</td>
+                        <td>Kubernetes CR</td>
+                        <td>argo-events namespace</td>
+                        <td>Triggers pod creation on events</td>
+                    </tr>
+                    <tr>
+                        <td>Windripper Pod</td>
+                        <td>Ephemeral Pod</td>
+                        <td>Runtime namespace</td>
+                        <td>Executes webhook processing logic</td>
+                    </tr>
+                    <tr>
+                        <td>PostgreSQL</td>
+                        <td>StatefulSet/Service</td>
+                        <td>windstorm namespace</td>
+                        <td>Persists container and commit data</td>
+                    </tr>
+                    <tr>
+                        <td>Windstorm Webhook</td>
+                        <td>Kubernetes Service</td>
+                        <td>argo-events namespace</td>
+                        <td>Receives processing notifications</td>
+                    </tr>
+                </table>
+            </section>
+            
+            <!-- FUNCTIONAL ARCHITECTURE -->
+            <section id="functional">
+                <h2>Functional Architecture</h2>
+                
+                <h3>System Context Diagram</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph TB
+    User[Container Developer]
+    Harbor[Harbor Registry]
+    Windripper[Windripper System]
+    Database[(PostgreSQL)]
+    Windstorm[Windstorm System]
+    
+    User -->|Push Container Image| Harbor
+    Harbor -->|Webhook: PUSH_ARTIFACT| Windripper
+    Windripper -->|Query Manifest/Config| Harbor
+    Windripper -->|Persist Metadata| Database
+    Windripper -->|Notify| Windstorm
+    
+    style Windripper fill:#667eea,color:#fff
+    style Harbor fill:#ff6b6b
+    style Database fill:#ffd93d
+    style Windstorm fill:#f38181
+                    </div>
+                </div>
+                
+                <h3>Functional Flow</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+sequenceDiagram
+    participant Harbor as Harbor Registry
+    participant EventSource as Webhook EventSource
+    participant Sensor as Argo Events Sensor
+    participant Pod as Windripper Pod
+    participant HarborAPI as Harbor API
+    participant DB as PostgreSQL
+    participant Windstorm as Windstorm
+    
+    Harbor->>EventSource: POST /windripper<br/>{type, resource_url, digest}
+    EventSource->>Sensor: Event Notification
+    Sensor->>Pod: Create Pod<br/>Args: [type, resource_url, digest]
+    
+    activate Pod
+    Pod->>Pod: Parse event_type<br/>(validate PUSH_ARTIFACT)
+    Pod->>Pod: Parse resource_url<br/>(extract host/project/image/tag)
+    
+    Pod->>DB: Query existing container<br/>(project, image, tag)
+    DB-->>Pod: Container record or None
+    
+    alt Container not found
+        Pod->>DB: INSERT new container
+        DB-->>Pod: New container ID
+    end
+    
+    Pod->>HarborAPI: GET /projects/{proj}/repositories/{repo}/artifacts/{digest}
+    HarborAPI-->>Pod: Multi-platform manifest
+    
+    Pod->>Pod: Find linux/amd64 child_digest
+    
+    Pod->>HarborAPI: GET /projects/{proj}/repositories/{repo}/artifacts/{child_digest}
+    HarborAPI-->>Pod: Platform-specific config<br/>{WorkingDir, Cmd, project_id, repository_id}
+    
+    Pod->>DB: INSERT container_commit<br/>(digest, cmd, working_dir, date)
+    DB-->>Pod: Commit persisted
+    
+    alt project_id or image_id missing
+        Pod->>DB: UPDATE container<br/>(project_id, image_id)
+    end
+    
+    Pod->>Windstorm: POST notification<br/>{"source": "ripper", "payload": {container_id}}
+    Windstorm-->>Pod: 200 OK
+    
+    Pod->>Pod: Exit (RestartPolicy: Never)
+    deactivate Pod
+                    </div>
+                </div>
+                
+                <h3>Key Functions</h3>
+                
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>1. Webhook Reception</h4>
+                        <ul>
+                            <li>Receives Harbor PUSH_ARTIFACT events</li>
+                            <li>Validates event type</li>
+                            <li>Extracts event parameters</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>2. Resource Parsing</h4>
+                        <ul>
+                            <li>Parses resource_url format</li>
+                            <li>Extracts host, project, image, tag</li>
+                            <li>Removes 'sha256:' prefix from digest</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>3. Harbor API Interaction</h4>
+                        <ul>
+                            <li>Queries multi-platform manifest</li>
+                            <li>Selects linux/amd64 child digest</li>
+                            <li>Fetches platform-specific config</li>
+                            <li>Extracts Cmd and WorkingDir</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>4. Database Persistence</h4>
+                        <ul>
+                            <li>Checks for existing container records</li>
+                            <li>Inserts new containers if needed</li>
+                            <li>Creates container_commits entries</li>
+                            <li>Updates project/image IDs</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3>Data Flow Diagram</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+flowchart TD
+    A[Harbor Push Event] --> B{Event Type?}
+    B -->|PUSH_ARTIFACT| C[Parse Resource URL]
+    B -->|Other| Z[Exit]
+    
+    C --> D[Extract Components<br/>host, project, image, tag]
+    D --> E[Query Database<br/>for Existing Container]
+    
+    E --> F{Container Exists?}
+    F -->|No| G[Insert New Container]
+    F -->|Yes| H[Get Container ID]
+    G --> H
+    
+    H --> I[Query Harbor API<br/>Multi-Platform Manifest]
+    I --> J[Find linux/amd64<br/>Child Digest]
+    
+    J --> K{Child Found?}
+    K -->|No| Z
+    K -->|Yes| L[Query Harbor API<br/>Platform Config]
+    
+    L --> M[Extract Metadata<br/>Cmd, WorkingDir, IDs]
+    M --> N[Insert Container Commit<br/>digest, cmd, working_dir, date]
+    
+    N --> O{IDs Missing?}
+    O -->|Yes| P[Update Container<br/>project_id, image_id]
+    O -->|No| Q[Post to Windstorm<br/>container_id]
+    P --> Q
+    
+    Q --> Z[Exit]
+    
+    style A fill:#ff6b6b
+    style Z fill:#95e1d3
+    style Q fill:#f38181
+                    </div>
+                </div>
+            </section>
+            
+            <!-- DEPLOYMENT DESIGN -->
+            <section id="deployment">
+                <h2>Deployment Design</h2>
+                
+                <h3>Kubernetes Deployment Architecture</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph TB
+    subgraph "Harbor"
+        HarborCore[Harbor Core]
+        HarborDB[(Harbor DB)]
+    end
+    
+    subgraph "Kubernetes Cluster"
+        subgraph "argo-events Namespace"
+            ES[EventSource<br/>windripper-webhook]
+            Sensor[Sensor<br/>windripper-sensor]
+            ESService[Service<br/>windripper-webhook-svc<br/>Port: 12000]
+            WSService[Service<br/>windstorm-webhook-svc<br/>Port: 12000]
+        end
+        
+        subgraph "Runtime Namespace"
+            Pod1[Pod: windripper-abc123<br/>Status: Running]
+            Pod2[Pod: windripper-def456<br/>Status: Completed]
+            Pod3[Pod: windripper-ghi789<br/>Status: Running]
+        end
+        
+        subgraph "windstorm Namespace"
+            PG[PostgreSQL StatefulSet]
+            PGService[Service<br/>postgres-postgresql<br/>Port: 5432]
+            PGPVC[(PVC<br/>postgres-data)]
+        end
+        
+        subgraph "Secrets"
+            DBSecret[Secret: dbparams<br/>username, password, table]
+            HarborSecret[Secret: harborparams<br/>username, password]
+        end
+    end
+    
+    HarborCore -->|Webhook POST| ESService
+    ESService --> ES
+    ES --> Sensor
+    Sensor -->|Create Pod| Pod1
+    Sensor -->|Create Pod| Pod3
+    
+    Pod1 -->|Mount| DBSecret
+    Pod1 -->|Mount| HarborSecret
+    Pod1 -->|Query| HarborCore
+    Pod1 -->|SQL| PGService
+    Pod1 -->|Notify| WSService
+    
+    Pod3 -->|Mount| DBSecret
+    Pod3 -->|Mount| HarborSecret
+    Pod3 -->|Query| HarborCore
+    Pod3 -->|SQL| PGService
+    
+    PGService --> PG
+    PG --> PGPVC
+    
+    style HarborCore fill:#ff6b6b
+    style ES fill:#4ecdc4
+    style Sensor fill:#4ecdc4
+    style Pod1 fill:#95e1d3
+    style Pod2 fill:#ccc
+    style Pod3 fill:#95e1d3
+    style PG fill:#ffd93d
+    style DBSecret fill:#f38181
+    style HarborSecret fill:#f38181
+                    </div>
+                </div>
+                
+                <h3>Event-Driven Pod Lifecycle</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+stateDiagram-v2
+    [*] --> EventReceived: Harbor Push Webhook
+    EventReceived --> PodCreating: Sensor Triggers
+    PodCreating --> PodRunning: Container Starts
+    
+    PodRunning --> ProcessingEvent: Execute main.py
+    ProcessingEvent --> QueryingHarbor: API Calls
+    QueryingHarbor --> PersistingData: Database Operations
+    PersistingData --> NotifyingWindstorm: POST Notification
+    
+    NotifyingWindstorm --> PodSucceeded: Success
+    ProcessingEvent --> PodFailed: Error
+    QueryingHarbor --> PodFailed: API Error
+    PersistingData --> PodFailed: DB Error
+    
+    PodSucceeded --> [*]: Pod Terminated
+    PodFailed --> [*]: Pod Terminated
+                    </div>
+                </div>
+                
+                <h3>Container Configuration</h3>
+                <table>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                        <th>Source</th>
+                    </tr>
+                    <tr>
+                        <td>Image</td>
+                        <td>docker.io/westfallio/windripper:v0.2.7</td>
+                        <td>Docker Hub</td>
+                    </tr>
+                    <tr>
+                        <td>Base Image</td>
+                        <td>python:3.9-alpine3.18</td>
+                        <td>Official Python</td>
+                    </tr>
+                    <tr>
+                        <td>Command</td>
+                        <td>["python"]</td>
+                        <td>Sensor Template</td>
+                    </tr>
+                    <tr>
+                        <td>Args</td>
+                        <td>["src/main.py", event_type, resource_url, digest]</td>
+                        <td>Sensor Parameters</td>
+                    </tr>
+                    <tr>
+                        <td>Restart Policy</td>
+                        <td>Never</td>
+                        <td>Sensor Template</td>
+                    </tr>
+                    <tr>
+                        <td>Working Directory</td>
+                        <td>/app</td>
+                        <td>Dockerfile</td>
+                    </tr>
+                </table>
+                
+                <h3>Environment Configuration</h3>
+                <table>
+                    <tr>
+                        <th>Variable</th>
+                        <th>Description</th>
+                        <th>Default/Example</th>
+                        <th>Source</th>
+                    </tr>
+                    <tr>
+                        <td>SQLHOST</td>
+                        <td>PostgreSQL host and port</td>
+                        <td>postgres-postgresql.windstorm:5432</td>
+                        <td>Sensor</td>
+                    </tr>
+                    <tr>
+                        <td>DBUSER</td>
+                        <td>Database username</td>
+                        <td>[from secret]</td>
+                        <td>Secret: dbparams</td>
+                    </tr>
+                    <tr>
+                        <td>DBPASS</td>
+                        <td>Database password</td>
+                        <td>[from secret]</td>
+                        <td>Secret: dbparams</td>
+                    </tr>
+                    <tr>
+                        <td>DBTABLE</td>
+                        <td>Database name</td>
+                        <td>sysml2</td>
+                        <td>Secret: dbparams</td>
+                    </tr>
+                    <tr>
+                        <td>HARBORHOST</td>
+                        <td>Harbor API endpoint</td>
+                        <td>http://harbor-core.harbor/api/v2.0</td>
+                        <td>Sensor</td>
+                    </tr>
+                    <tr>
+                        <td>HARBORUSER</td>
+                        <td>Harbor username</td>
+                        <td>[from secret]</td>
+                        <td>Secret: harborparams</td>
+                    </tr>
+                    <tr>
+                        <td>HARBORPASS</td>
+                        <td>Harbor password</td>
+                        <td>[from secret]</td>
+                        <td>Secret: harborparams</td>
+                    </tr>
+                    <tr>
+                        <td>WINDSTORMHOST</td>
+                        <td>Windstorm webhook URL</td>
+                        <td>http://windstorm-webhook-eventsource-svc.argo-events:12000/windstorm</td>
+                        <td>Sensor</td>
+                    </tr>
+                </table>
+                
+                <h3>Resource Requirements</h3>
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>Container Image</h4>
+                        <ul>
+                            <li><strong>Size:</strong> ~150-200 MB (Alpine base)</li>
+                            <li><strong>Layers:</strong> Base OS, Python runtime, dependencies, application code</li>
+                            <li><strong>Build:</strong> Multi-stage not required (simple app)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Runtime Resources</h4>
+                        <ul>
+                            <li><strong>CPU:</strong> Minimal (I/O bound workload)</li>
+                            <li><strong>Memory:</strong> ~50-100 MB typical</li>
+                            <li><strong>Duration:</strong> 2-10 seconds per execution</li>
+                            <li><strong>Concurrency:</strong> Multiple pods can run simultaneously</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3>Deployment Workflow</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+flowchart LR
+    A[Code Repository] --> B[GitHub Actions]
+    B --> C[Build Docker Image]
+    C --> D[Tag Image<br/>v0.2.7]
+    D --> E[Push to Docker Hub<br/>westfallio/windripper]
+    
+    E --> F[Update Sensor YAML<br/>image reference]
+    F --> G[Apply Sensor to K8s]
+    
+    G --> H[Argo Events Controller<br/>Watches Sensor]
+    H --> I[EventSource Active<br/>Listening on :12000]
+    
+    I --> J[Harbor Webhook<br/>Configured]
+    J --> K[System Ready]
+    
+    style A fill:#667eea,color:#fff
+    style E fill:#ff6b6b
+    style G fill:#4ecdc4
+    style K fill:#95e1d3
+                    </div>
+                </div>
+                
+                <h3>High Availability Considerations</h3>
+                <div class="info-box">
+                    <strong>Stateless Design:</strong> Windripper pods are ephemeral and stateless, making horizontal 
+                    scaling straightforward. Each webhook event creates a new pod that processes independently.
+                </div>
+                
+                <ul>
+                    <li><strong>Event Source HA:</strong> Argo Events can be configured with multiple replicas</li>
+                    <li><strong>Database HA:</strong> PostgreSQL can use replication or managed cloud services</li>
+                    <li><strong>Pod Failures:</strong> Failed pods are logged; Harbor can retry webhooks</li>
+                    <li><strong>Concurrent Processing:</strong> Multiple events trigger multiple pods simultaneously</li>
+                    <li><strong>Resource Limits:</strong> Kubernetes namespace quotas prevent resource exhaustion</li>
+                </ul>
+            </section>
+            
+            <!-- DATA MODEL -->
+            <section id="data">
+                <h2>Data Model</h2>
+                
+                <h3>Entity-Relationship Diagram</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+erDiagram
+    CONTAINERS ||--o{ CONTAINER_COMMITS : has
+    
+    CONTAINERS {
+        int id PK
+        string resource_url
+        string host
+        string project
+        int project_id
+        string image
+        int image_id
+        string tag
+    }
+    
+    CONTAINER_COMMITS {
+        int id PK
+        int containers_id FK
+        string digest
+        string cmd
+        string working_dir
+        datetime date
+    }
+                    </div>
+                </div>
+                
+                <h3>Table: containers</h3>
+                <table>
+                    <tr>
+                        <th>Column</th>
+                        <th>Type</th>
+                        <th>Constraints</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>id</td>
+                        <td>INTEGER</td>
+                        <td>PRIMARY KEY, AUTO_INCREMENT</td>
+                        <td>Unique container identifier</td>
+                    </tr>
+                    <tr>
+                        <td>resource_url</td>
+                        <td>VARCHAR(255)</td>
+                        <td>NOT NULL</td>
+                        <td>Full resource path (host/project/repo:tag)</td>
+                    </tr>
+                    <tr>
+                        <td>host</td>
+                        <td>VARCHAR(255)</td>
+                        <td>NOT NULL</td>
+                        <td>Registry hostname</td>
+                    </tr>
+                    <tr>
+                        <td>project</td>
+                        <td>VARCHAR(255)</td>
+                        <td>NOT NULL</td>
+                        <td>Harbor project name</td>
+                    </tr>
+                    <tr>
+                        <td>project_id</td>
+                        <td>INTEGER</td>
+                        <td>NULLABLE</td>
+                        <td>Harbor numeric project ID</td>
+                    </tr>
+                    <tr>
+                        <td>image</td>
+                        <td>VARCHAR(255)</td>
+                        <td>NOT NULL</td>
+                        <td>Repository/image name</td>
+                    </tr>
+                    <tr>
+                        <td>image_id</td>
+                        <td>INTEGER</td>
+                        <td>NULLABLE</td>
+                        <td>Harbor numeric repository ID</td>
+                    </tr>
+                    <tr>
+                        <td>tag</td>
+                        <td>VARCHAR(255)</td>
+                        <td>NOT NULL</td>
+                        <td>Image tag (e.g., 'latest', 'v1.0.0')</td>
+                    </tr>
+                </table>
+                
+                <h3>Table: container_commits</h3>
+                <table>
+                    <tr>
+                        <th>Column</th>
+                        <th>Type</th>
+                        <th>Constraints</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>id</td>
+                        <td>INTEGER</td>
+                        <td>PRIMARY KEY, AUTO_INCREMENT</td>
+                        <td>Unique commit identifier</td>
+                    </tr>
+                    <tr>
+                        <td>containers_id</td>
+                        <td>INTEGER</td>
+                        <td>FOREIGN KEY → containers(id)</td>
+                        <td>Reference to parent container</td>
+                    </tr>
+                    <tr>
+                        <td>digest</td>
+                        <td>VARCHAR(64)</td>
+                        <td>NOT NULL</td>
+                        <td>SHA256 digest (without 'sha256:' prefix)</td>
+                    </tr>
+                    <tr>
+                        <td>cmd</td>
+                        <td>TEXT</td>
+                        <td>NOT NULL</td>
+                        <td>JSON-serialized command array from config</td>
+                    </tr>
+                    <tr>
+                        <td>working_dir</td>
+                        <td>VARCHAR(255)</td>
+                        <td>NOT NULL</td>
+                        <td>Container working directory</td>
+                    </tr>
+                    <tr>
+                        <td>date</td>
+                        <td>TIMESTAMP</td>
+                        <td>NOT NULL, DEFAULT NOW()</td>
+                        <td>Timestamp when commit was recorded</td>
+                    </tr>
+                </table>
+                
+                <h3>Data Operations</h3>
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>Container Insert/Lookup</h4>
+                        <ol>
+                            <li>Query by (project, image, tag)</li>
+                            <li>If not found, INSERT new container</li>
+                            <li>Retrieve container ID for commits</li>
+                            <li>Update project_id/image_id if NULL</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Commit Creation</h4>
+                        <ol>
+                            <li>Extract digest from webhook</li>
+                            <li>Query Harbor for config</li>
+                            <li>Serialize Cmd to JSON</li>
+                            <li>INSERT with current timestamp</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <h3>Example Data Flow</h3>
+                <div class="code-block">
+# Input Webhook Event
+{
+  "type": "PUSH_ARTIFACT",
+  "event_data": {
+    "resources": [{
+      "resource_url": "harbor.example.com/production/myapp:v1.2.3",
+      "digest": "sha256:abc123def456..."
+    }]
+  }
+}
+
+# Parsed Components
+host = "harbor.example.com"
+project = "production"
+image = "myapp"
+tag = "v1.2.3"
+digest = "abc123def456..."
+
+# Container Query/Insert
+SELECT * FROM containers 
+WHERE project='production' AND image='myapp' AND tag='v1.2.3'
+
+-- If not found:
+INSERT INTO containers (resource_url, host, project, image, tag)
+VALUES ('harbor.example.com/production/myapp:v1.2.3', 
+        'harbor.example.com', 'production', 'myapp', 'v1.2.3')
+
+# Harbor API Response (simplified)
+{
+  "extra_attrs": {
+    "config": {
+      "Cmd": ["/bin/sh", "-c", "python app.py"],
+      "WorkingDir": "/app"
+    }
+  },
+  "project_id": 42,
+  "repository_id": 123
+}
+
+# Commit Insert
+INSERT INTO container_commits 
+  (containers_id, digest, cmd, working_dir, date)
+VALUES 
+  (1, 'abc123def456...', '["/bin/sh", "-c", "python app.py"]', 
+   '/app', '2026-02-01 16:30:00')
+
+# Container Update (if IDs were NULL)
+UPDATE containers 
+SET project_id=42, image_id=123 
+WHERE id=1
+
+# Windstorm Notification
+POST http://windstorm-webhook-eventsource-svc:12000/windstorm
+{
+  "source": "ripper",
+  "payload": {
+    "container_id": 1
+  }
+}
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p><strong>Windripper</strong> - Container Image Webhook Processing System</p>
+            <p>Copyright © 2023-2024 Westfall Inc. - Licensed under GNU Affero General Public License v3.0</p>
+            <p>Documentation generated February 2026</p>
+        </footer>
+    </div>
+    
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</body>
+</html>
